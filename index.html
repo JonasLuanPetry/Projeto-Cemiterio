@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro Cemiterio</title>
+</head>
+<body>
+  <h1>Registro Cemiterio</h1>
+
+  <label>Coveiro: <input type="text" id="coveiro"></label><br><br>
+  <label>Lapide: <input type="text" step="any" id="lapide"></label><br><br>
+  <label>Nome: <input type="text" step="any" id="nome"></label><br><br>
+  <label>Idade: <input type="number" id="idade"></label><br><br>
+  <label>Data: <input type="date" id="data"></label><br><br>
+  <button id="btn">Cadastrar</button>
+
+  <pre id="resposta"></pre>
+
+  <script>
+    const butao = document.getElementById('btn');
+    butao.addEventListener('click', async function () {
+      const coveiro = document.getElementById('coveiro').value;
+      const lapide = Number(document.getElementById('lapide').value);
+      const nome = Number(document.getElementById('nome').value);
+      const idade = document.getElementById('idade').value;
+      const data = document.getElementById('data').value;
+      
+      const response = await fetch('https://6a28a93d4e1e783349a5dab4.mockapi.io/api/cemiterio/cemiterio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ coveiro, lapide, nome, idade, data }),
+      });
+
+      const datas = await response.json();
+      document.getElementById('resposta').textContent = JSON.stringify(datas);
+    });
+  </script>
+</body>
+</html>
